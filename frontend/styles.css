@@ -1,261 +1,47 @@
-/* Общие стили для медицинской платформы */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
     padding: 20px;
 }
 
-.container {
+h1, h2 {
+    color: #333;
+}
+
+section {
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-width: 900px;
-    width: 100%;
-    padding: 40px;
-}
-
-/* Заголовок */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-header h1 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    color: #666;
-    font-size: 1.1em;
-}
-
-/* Выбор роли */
-.role-selection h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 1.8em;
-}
-
-.role-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.role-card {
-    background: #f8f9fa;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.role-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.icon {
-    font-size: 4em;
-    margin-bottom: 15px;
-}
-
-.role-card h3 {
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 1.5em;
-}
-
-.role-card p {
-    color: #666;
+    padding: 20px;
     margin-bottom: 20px;
-    line-height: 1.6;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Кнопки */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s;
-    cursor: pointer;
-    border: none;
-    font-size: 1em;
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+label {
+    margin-bottom: 5px;
 }
 
-.btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-secondary {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-}
-
-.btn-secondary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
-}
-
-/* Формы входа */
-.login-container {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.login-form {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 1em;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #667eea;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-
-/* Секция консультации */
-.consultation-section {
-    text-align: center;
-    margin-top: 50px;
-    padding: 40px 30px;
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-    border-radius: 20px;
-    border: 2px dashed #667eea40;
-}
-
-.consultation-section h2 {
-    color: #333;
-    font-size: 1.8em;
+input[type="text"], textarea {
+    padding: 10px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.consultation-section p {
-    color: #666;
-    font-size: 1.1em;
-    margin-bottom: 25px;
-}
-
-.btn-consultation {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+button {
+    padding: 10px;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 60px;
-    text-decoration: none;
-    font-size: 1.3em;
-    font-weight: bold;
+    border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-    transition: all 0.3s ease;
-    animation: pulse-consultation 2s infinite;
 }
 
-.btn-consultation:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
-    animation: none;
-}
-
-.btn-consultation-icon {
-    font-size: 1.4em;
-}
-
-@keyframes pulse-consultation {
-    0% {
-        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-    }
-    50% {
-        box-shadow: 0 8px 50px rgba(102, 126, 234, 0.7);
-    }
-    100% {
-        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-    }
-}
-
-/* Футер */
-footer {
-    text-align: center;
-    color: #999;
-    font-size: 0.9em;
-    margin-top: 20px;
+button:hover {
+    background-color: #0056b3;
 }

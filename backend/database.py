@@ -1,77 +1,114 @@
-"""
-Модуль для работы с базой данных медицинской платформы.
-Используется SQLite — лёгкая встроенная база данных.
-"""
-
 import sqlite3
-import os
-from datetime import datetime
+from cryptography.fernet import Fernet
 
-# Путь к файлу базы данных
-DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "database", "medical.db")
+# Initialize the database
+def init_db():
+    create_patients_table()
+    create_doctors_table()
+    create_personal_data_table()
+    return connect_db()  # Ensure a connection is returned
 
+# Generate a key for encryption
+def generate_key():
+    return Fernet.generate_key()
 
+# Get database connection
 def get_db():
-    """Подключение к базе данных"""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # чтобы обращаться к полям по имени
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn = connect_db()
     return conn
 
+# Encrypt patient data
+def encrypt_data(data, key):
+    fernet = Fernet(key)
+    encrypted_data = fernet.encrypt(data.encode())
+    return encrypted_data
 
-def init_db():
-    """Создание таблиц при первом запуске"""
-    conn = get_db()
+# Decrypt patient data
+def decrypt_data(encrypted_data, key):
+    fernet = Fernet(key)
+    decrypted_data = fernet.decrypt(encrypted_data).decode()
+    return decrypted_data
+
+# Connect to the database
+def connect_db():
+    conn = sqlite3.connect('patients.db')
+    return conn
+
+# Create patients table
+def create_patients_table():
+    conn = connect_db()
     cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS patients (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            code TEXT NOT NULL,
+            medical_history TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
-    # Таблица 1: Персональные данные (защищённая информация)
-    cursor.execute("""
+# Create doctors table
+def create_doctors_table():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS doctors (
+            id INTEGER PRIMARY KEY,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Create personal data table
+def create_personal_data_table():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS personal_data (
-            patient_code TEXT PRIMARY KEY,      -- код пациента, например PAT-00123
-            full_name TEXT NOT NULL,             -- ФИО
-            phone TEXT NOT NULL,                 -- телефон
-            birth_date TEXT NOT NULL,            -- дата рождения (ДД.ММ.ГГГГ)
-            created_at TEXT NOT NULL             -- дата создания карты
+            id INTEGER PRIMARY KEY,
+            patient_code TEXT NOT NULL,
+            full_name TEXT NOT NULL,
+            phone TEXT NOT NULL
         )
-    """)
+    ''')
+    conn.commit()
+    conn.close()
 
-    # Таблица 2: Медкарта (только медицинские данные, без ФИО)
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS medical_record (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,  -- номер записи (автоматически)
-            patient_code TEXT NOT NULL,             -- код пациента (связь с первой таблицей)
-            complaints TEXT DEFAULT '',             -- жалобы
-            anamnesis TEXT DEFAULT '',              -- анамнез
-            objective_exam TEXT DEFAULT '',         -- объективный осмотр
-            diagnosis TEXT DEFAULT '',              -- диагноз (по МКБ)
-            treatment_plan TEXT DEFAULT '',         -- план лечения
-            treatment_done TEXT DEFAULT '',         -- выполненное лечение
-            recommendations TEXT DEFAULT '',        -- рекомендации
-            visit_date TEXT NOT NULL,               -- дата приёма
-            FOREIGN KEY (patient_code) REFERENCES personal_data(patient_code)
-        )
-    """)
-
+# Add a new patient
+def add_patient(name, code, medical_history):
+    key = generate_key()  # Use a secure method to retrieve the key
+    encrypted_name = encrypt_data(name, key)
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO patients (name, code, medical_history) VALUES (?, ?, ?)
+    ''', (encrypted_name, code, medical_history))
     conn.commit()
     conn.close()
 
 
-def generate_patient_code():
-    """Автоматическая генерация кода пациента (PAT-001, PAT-002 и т.д.)"""
-    conn = get_db()
+# Function to add test data
+def add_test_data():
+    conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT patient_code FROM personal_data ORDER BY patient_code DESC LIMIT 1")
-    last = cursor.fetchone()
+    
+    # Add test doctor
+    cursor.execute('''
+        INSERT INTO doctors (username, password) VALUES (?, ?)
+    ''', ('test_doctor', 'test_password'))
+    
+    # Add test patient
+    cursor.execute('''
+        INSERT INTO personal_data (patient_code, full_name, phone) VALUES (?, ?, ?)
+    ''', ('test_code', 'Test Patient', '1234567890'))
+    
+    conn.commit()
     conn.close()
-    if last is None:
-        return "PAT-001"
-    # Извлекаем номер из последнего кода, например PAT-042 -> 42
-    last_num = int(last["patient_code"].split("-")[1])
-    return f"PAT-{last_num + 1:03d}"
 
-
-# При запуске этого файла — инициализируем базу
-if __name__ == "__main__":
-    init_db()
-    print(f"✅ База данных создана: {DB_PATH}")
-    print(f"📁 Таблицы: personal_data, medical_record")
+# Initialize the database
+init_db()
+add_test_data()
