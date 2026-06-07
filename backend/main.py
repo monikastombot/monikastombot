@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 import os
 
 app = FastAPI(title="Medical Platform API")
@@ -14,7 +14,10 @@ app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 @app.get("/")
 async def root():
     """Главная страница"""
-    return FileResponse(os.path.join(frontend_path, "index.html"))
+    index_path = os.path.join(frontend_path, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return HTMLResponse("<h1>Medical Platform</h1><p>Server is running</p>")
 
 @app.get("/patient-login")
 async def patient_login():
