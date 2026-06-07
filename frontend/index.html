@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицинская платформа</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Медицинская платформа</h1>
+            <p class="subtitle">Добро пожаловать в систему управления здоровьем</p>
+        </header>
+
+        <main class="role-selection">
+            <h2>Выберите тип входа</h2>
+            <div class="role-cards">
+                <div class="role-card">
+                    <div class="icon">👤</div>
+                    <h3>Вход для пациента</h3>
+                    <p>Доступ к личному кабинету, записи на приём и истории болезни</p>
+                    <a href="/patient-login" class="btn btn-primary">Войти как пациент</a>
+                </div>
+
+                <div class="role-card">
+                    <div class="icon">👨‍⚕️</div>
+                    <h3>Вход для врача</h3>
+                    <p>Доступ к панели управления пациентами и медицинским данным</p>
+                    <a href="/doctor-login" class="btn btn-secondary">Войти как врач</a>
+                </div>
+            </div>
+
+            <!-- Большая кнопка "Получить консультацию" -->
+            <div class="consultation-section">
+                <h2>Нужна консультация?</h2>
+                <p>Задайте вопросы нашему медицинскому ассистенту онлайн</p>
+                <a href="https://cdn.botpress.cloud/webchat/v3.6/shareable.html?configUrl=https://files.bpcontent.cloud/2026/02/26/08/20260226080052-8HKAFBOV.json"
+                   target="_blank"
+                   class="btn btn-consultation">
+                    <span class="btn-consultation-icon">💬</span>
+                    Получить консультацию
+                </a>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Медицинская платформа. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Плавающая кнопка чат-бота -->
+    <a href="https://cdn.botpress.cloud/webchat/v3.6/shareable.html?configUrl=https://files.bpcontent.cloud/2026/02/26/08/20260226080052-8HKAFBOV.json"
+       target="_blank"
+       class="chatbot-btn"
+       title="Открыть чат с ассистентом">
+        <span class="chatbot-btn-icon">💬</span>
+        <span class="chatbot-btn-text">Чат с ассистентом</span>
+    </a>
+</body>
+</html>

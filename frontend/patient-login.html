@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход для пациента - Медицинская платформа</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Медицинская платформа</h1>
+            <p class="subtitle">Личный кабинет пациента</p>
+        </header>
+
+        <main class="login-container">
+            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Вход для пациента</h2>
+            
+            <!-- Форма входа (пока без реальной авторизации) -->
+            <form class="login-form" id="patientLoginForm">
+                <div class="form-group">
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" name="username" placeholder="Введите ваш логин" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Войти</button>
+            </form>
+
+            <a href="/" class="back-link">← Вернуться на главную</a>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Медицинская платформа. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Простой JavaScript для обработки формы (заглушка) -->
+    <script>
+        document.getElementById('patientLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Пока это просто заглушка - показываем сообщение
+            const username = document.getElementById('username').value;
+            alert('Добро пожаловать, ' + username + '!\n\nЭто заглушка страницы входа.\nРеальная авторизация будет добавлена на следующих этапах.');
+        });
+    </script>
+</body>
+</html>
