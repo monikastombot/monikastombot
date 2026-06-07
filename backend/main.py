@@ -3,6 +3,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 import os
 
+# Инициализация базы данных при запуске
+from backend.database import init_db
+init_db()
+
 app = FastAPI(title="Medical Platform API")
 
 # Путь к frontend
