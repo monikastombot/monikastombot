@@ -189,57 +189,6 @@ header h1 {
     text-decoration: underline;
 }
 
-/* Плавающая кнопка чат-бота */
-.chatbot-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 28px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.chatbot-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
-}
-
-.chatbot-btn-icon {
-    font-size: 1.4em;
-}
-
-.chatbot-btn-text {
-    white-space: nowrap;
-}
-
-/* Адаптация для мобильных устройств */
-@media (max-width: 600px) {
-    .chatbot-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 14px 20px;
-    }
-
-    .chatbot-btn-text {
-        display: none;
-    }
-
-    .chatbot-btn-icon {
-        font-size: 1.6em;
-    }
-}
 
 /* Секция консультации */
 .consultation-section {
